@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music on Page Load</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+        #play-button {
+            display: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #play-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <audio id="background-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+    <button id="play-button">Play Music</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let audio = document.getElementById("background-music");
+            let button = document.getElementById("play-button");
+
+            audio.volume = 0.5;
+
+            // Try to auto-play music
+            audio.play().catch(error => {
+                console.log("Autoplay blocked:", error);
+                button.style.display = "block"; // Show button if autoplay is blocked
+            });
+
+            // Play music when user clicks the button
+            button.addEventListener("click", function() {
+                audio.play();
+                button.style.display = "none"; // Hide button after play starts
+            });
+        });
+    </script>
+</body>
+</html>
